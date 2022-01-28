@@ -1,7 +1,7 @@
 # Python s3 upload service
 
 ## Create virtual env
-`python -m venv venv`
+`python3 -m venv venv`
 
 ## Enter virtual env
 `source venv/bin/activate`
@@ -9,17 +9,8 @@
 ## Install dependencies
 `pip install -r requirements.txt`
 
-## split file into chunks
-`python main.py --file ./samples/pictures.zip`
-
-## merge chunks into a file
-`python main.py --action merge --chunks ./out`
-
 ## upload file
-`python main.py --action upload --file ./samples/pictures.zip`
-
-## using aws profile
-`python main.py --file ./samples/pictures.zip`
+`./upload_file.py --fpath ./samples/pictures.zip`
 
 ## Run the dynamodb locally
 `docker run --rm -d -p 8000:8000 amazon/dynamodb-local`
@@ -44,9 +35,14 @@ aws dynamodb create-table \
     --region eu-west-1
 ```
 
-### Key Types:
+### OLD Key Types:
  - PPK = "files", PRK = {datetime}
  - PPK = "file":{uid}, PRK = "metadata"
  - PPK = "file":{uid}, PRK = "chunks":{counter}
  - PPK = "file":{uid}:"chunk":{counter}, PRK = "metadata"
  - PPK = "file":{uid}:"chunk":{counter}:"attempts", PRK = {datetime}
+
+### NEW Key Types:
+ - PPK = "files", PRK = {datetime}
+ - PPK = "files":{uid}, PRK = "meta"
+ - PPK = "files":{uid}, PRK = "parts":{counter}

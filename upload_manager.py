@@ -1,14 +1,6 @@
-import boto3
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-session = boto3.Session(profile_name=os.getenv("AWS_PROFILE",''))
-client = session.client('s3')
 
 class UploadManager:
-    def __init__(self, bucket="examplebucket", prefix=""):
+    def __init__(self, client, bucket="examplebucket", prefix=""):
         self.client = client
         self.bucket = bucket
         self.prefix = prefix
@@ -41,7 +33,7 @@ class UploadManager:
 
     def upload_part(self, body, name, part_num, upload_id):
         key = self.gen_file_key(name)
-        print('counter', part_num, 'key', key)
+        # print('counter', part_num, 'key', key)
         response = self.client.upload_part(
                 Body=body,
                 Bucket=self.bucket,
@@ -188,7 +180,7 @@ class UploadManager:
     def complete_upload(self, name, parts, upload_id):
         key = self.gen_file_key(name)
         # Complete the multipart upload
-        print('key', key)
+        # print('key', key)
         response = self.client.complete_multipart_upload(
             Bucket=self.bucket,
             Key=key,

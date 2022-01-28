@@ -31,7 +31,7 @@ class FileManager:
             # print("chunk: {0}, size: {1}".format(f, s))
         
         fs.split(file=file_path, split_size=mb_size_in_bytes*mb_amount, output_dir=dest, callback=split_cb)
-        return { "succeeded": True, "dest": dest, "chunks": chunks, "uid": uid }
+        return { "succeeded": True, "dest": dest }
 
     def merge_chunks(self, dir_path):
         chunks = []

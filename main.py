@@ -1,29 +1,13 @@
-import argparse
 import csv
-import os
-from file_manager import FileManager
-from journal import Journal
-from upload_manager import UploadManager
+
 from datetime import datetime
-from dotenv import load_dotenv
+from options import load_options, OPTION
+from services import file_manager, upload_manager, journal
 
-class Options:
-    pass
+options = load_options()
 
-options = Options()
-parser = argparse.ArgumentParser()
-parser.add_argument('--file', help='File path to be uploaded', type=str)
-args = parser.parse_args(namespace=options)
-
-load_dotenv()
-
-file_manager = FileManager()
-upload_manager = UploadManager(bucket=os.getenv("S3_BUCKET", "my-s3-bucket"), prefix=os.getenv("S3_PREFIX", "my-folder"))
-journal = Journal(os.getenv("DYNAMODB_TABLE", "Uploads"))
-
-if options.file is None:
-    print("[--file] is missing")
-    exit(0)
+print("This file is deprecated, please use upload_file.py instead...")
+exit(0)
 
 # main_file_name = options.file.split("/")[-1]
 # res = upload_manager.init_upload(main_file_name)
