@@ -7,5 +7,5 @@ pycodestyle==2.8.0
 python-dateutil==2.8.2
 python-dotenv==1.2.2
 s3transfer==0.6.0
-six==1.16.0
+six==1.17.0
 toml==0.10.2
